@@ -1,0 +1,25 @@
+
+<button type="button" 
+  class="btn btn-primary"
+  (click)="showNew=!showNew;">New Page</button>
+
+<new-page *ngIf="showNew"></new-page>
+<table class="table">
+    <thead>
+        <tr>
+            <th>#</th>
+            <th>Title</th>
+            <th>Subject</th>
+            <th>Published</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr *ngFor="let page of pageList">
+            <th scope="row">{{ page.slug}}</th>
+            <td>{{ page.tittle}}</td>
+            <td>{{ page.subject}}</td>
+            <td>{{ page.publishDate | date:'dd/MM/yyyy'}}</td>
+        </tr>
+    </tbody>
+</table>
+
