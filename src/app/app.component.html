@@ -1,17 +1,13 @@
 
 <top-bar></top-bar>
 
-{{ (dataObj | async)?.by}}
-{{ (dataObj | async)?.url}}
 <div class="container">
   <div class="row" *ngIf="auth.isLoggedIn">
     <div class="col-md-4">
       <left-bar></left-bar>
     </div>
     <div class="col-md-8">
-        <pages-page *ngIf="showPages"></pages-page>
-        <media-page *ngIf="showMedia"></media-page>
-        <settings-page *ngIf="showSettings"></settings-page>
+      <router-outlet></router-outlet>
     </div>
   </div>  
 </div>

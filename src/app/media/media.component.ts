@@ -1,34 +1,45 @@
-import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, SimpleChanges } from '@angular/core';
+import { Component, ViewChild, OnInit, Output, EventEmitter } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
+import { AngularFirestore } from 'angularfire2/firestore';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'media-page',
+  selector: 'new-media',
   templateUrl: './media.component.html',
   styleUrls: ['./media.component.css']
 })
-export class MediaComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
+export class MediaComponent implements OnInit{
   
-  public isLoggedIn: boolean = false;
+  public showNew: boolean = false;
+  public mediaList: Array<any> = [];
 
-  title = 'Media';
+  constructor(private auth: AuthService,
+    public af: AngularFirestore,
+    private router: Router) {  }
   
-  ngAfterViewInit(): void {
-    
-  }
-  ngOnDestroy(): void {
-    
-  }
-  ngOnChanges(changes: SimpleChanges): void {
-    
-  }
-  ngOnInit(): void{}
+  ngOnInit(): void { 
+    this.auth.userState
+      .subscribe(x => this.auth.isLoggedIn = x);
 
-constructor(private auth:AuthService){
+    this.af.collection("/Medias")
+      .snapshotChanges()
+      .subscribe(x => {
+        let documentArray: Array<any> = [];
+        x.forEach(element => {
+          this.af.doc<any>('/Medias/' + element.payload.doc.id)
+            .valueChanges()
+            .subscribe(x => documentArray.push({id: element.payload.doc.id, doc: x }));
+        });
 
+        this.mediaList = documentArray;
+      });
 
+  }
+
+  public hidePage(args: { type: string, text: string }) {
+    if (args.type == "success") this.showNew = false;
+  }
 
 
 }
 
-  
-}

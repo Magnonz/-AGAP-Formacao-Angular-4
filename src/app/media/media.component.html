@@ -1,1 +1,20 @@
-media
+
+<table class="table">
+        <thead>
+          <tr>
+            <th scope="col">id</th>
+            <th scope="col">Title</th>
+            <th scope="col">Image</th>
+
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let media of mediaList">
+            <td>{{ media.id }}</td>
+            <td>{{ media.doc.title }}</td>
+            <td><img src="{{ media.doc.img }}"></td>
+
+           
+          </tr>
+        </tbody>
+      </table>

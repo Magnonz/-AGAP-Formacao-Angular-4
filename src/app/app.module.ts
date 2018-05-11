@@ -1,63 +1,53 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { FormsModule } from '@angular/forms';
 
-//   Import Bootstrap Alert
 import { AlertModule } from 'ngx-bootstrap';
-
-//    Import Firebase
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { AppRoutingModule } from "./app-routing.module";
 
-import {environment} from '../environments/environment';
+import { environment } from '../environments/environment';
 
 import { AppComponent } from './app.component';
-
-
-import { LeftBarComponent } from './shared/leftbar/leftbar.component';
 import { TopbarComponent } from './shared/topbar/topbar.component';
+import { LeftBarComponent } from './shared/leftbar/leftbar.component';
 import { FooterComponent } from './shared/footer/footer.component';
+import { PagesComponent } from './pages/pages.component';
+import { SettingsComponent } from './settings/settings.component';
+import { PageComponent } from './pages/new/page.component';
 import { AuthService } from './shared/auth.service';
 import { MenuService } from './shared/menu.service';
 
-import { PagesComponent } from './pages/pages.component';
-import { MediaComponent } from './media/media.component';
-import { SettingsComponent } from './settings/settings.component';
+import { HttpClientModule } from '@angular/common/http';
 import { DataService } from './shared/data.service';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
-import { FormsModule } from '@angular/forms';
-import { PageComponent } from './pages/new/page.component';
+import { AuthGuard } from './auth-guard.service';
+import { MediaModule } from './media/media.module';
+import { SharedModule } from './shared/shared.module';
+
+
 
 @NgModule({
-  //Componentes
   declarations: [
     AppComponent,
-    LeftBarComponent,
-    TopbarComponent,
-    FooterComponent,
     PagesComponent,
-    MediaComponent,
-    SettingsComponent,
-    PageComponent
-
+    PageComponent,
+    SettingsComponent
   ],
   imports: [
-    BrowserModule,   
+    BrowserModule,
     FormsModule,
-    AlertModule.forRoot(), 
+    AlertModule.forRoot(),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     AngularFireAuthModule,
-    AngularFireModule.initializeApp(environment.firebase),
-    HttpClientModule
+    HttpClientModule,
+    AppRoutingModule,
+    MediaModule,
+    SharedModule
   ],
-
-  //Serviços
-  providers: [
-    AuthService,
-    MenuService,
-    DataService
-  ],
+  providers: [  ],
   bootstrap: [AppComponent]
 })
-
 export class AppModule { }

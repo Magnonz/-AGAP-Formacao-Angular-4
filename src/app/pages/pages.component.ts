@@ -1,42 +1,48 @@
-import { Component, OnInit, OnChanges, OnDestroy, AfterViewInit, SimpleChanges } from '@angular/core';
+
+import { Component, ViewChild, OnInit } from '@angular/core';
 import { AuthService } from '../shared/auth.service';
-import { FirebaseFirestore } from '@firebase/firestore-types';
 import { AngularFirestore } from 'angularfire2/firestore';
+import { Route } from '@angular/compiler/src/core';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'pages-page',
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.css']
 })
-export class PagesComponent implements OnChanges, OnInit, OnDestroy, AfterViewInit {
+export class PagesComponent implements OnInit{
+  public showNew: boolean = false;
+  public pageList: Array<any> = [];
+
+  constructor(private auth: AuthService,
+    public af: AngularFirestore,
+    private router: Router) {  }
   
+  ngOnInit(): void { 
+    this.auth.userState
+      .subscribe(x => this.auth.isLoggedIn = x);
 
+    this.af.collection("/Pages")
+      .snapshotChanges()
+      .subscribe(x => {
+        let documentArray: Array<any> = [];
+        x.forEach(element => {
+          this.af.doc<any>('/Pages/' + element.payload.doc.id)
+            .valueChanges()
+            .subscribe(x => documentArray.push({id: element.payload.doc.id, doc: x }));
+        });
 
-  public pageList : Array<any> = [];
-  public isLoggedIn: boolean = false;
+        this.pageList = documentArray;
+      });
 
-  title = 'Pages';
-  
-  ngAfterViewInit(): void {
- 
   }
-  ngOnDestroy(): void {
- 
+
+  public hidePage(args: { type: string, text: string }) {
+    if (args.type == "success") this.showNew = false;
   }
-  ngOnChanges(changes: SimpleChanges): void {
-   
+
+  public goToNew() {
+    this.router.navigate(['/pages', 'new']);
   }
-  ngOnInit(): void{}
 
-
-constructor(private auth:AuthService, private af : AngularFirestore){
-
-this.af.collection("/Pages")
-.valueChanges()
-.subscribe(x=> this.pageList =x);
-
-
-}
-
-  
 }

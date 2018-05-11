@@ -1,7 +1,8 @@
 <ul class="nav flex-column">
-    <li class="nav-item" *ngFor="let menu of menuArray">
-      <button class="btn btn-link nav-link" 
-        (click)="showComponent(menu.link)">{{menu.text}}</button>
-    </li>
+    
+  <li><a routerLink='/pages'>Pages</a></li>
+  <li><a routerLink='/media'>Media</a></li>
+  <li><a routerLink='/settings'>Settings</a></li>
+  
 
   </ul>

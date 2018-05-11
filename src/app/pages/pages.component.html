@@ -1,25 +1,26 @@
-
 <button type="button" 
   class="btn btn-primary"
-  (click)="showNew=!showNew;">New Page</button>
+  (click)="goToNew()">New Page</button>
 
-<new-page *ngIf="showNew"></new-page>
+
+
 <table class="table">
     <thead>
-        <tr>
-            <th>#</th>
-            <th>Title</th>
-            <th>Subject</th>
-            <th>Published</th>
-        </tr>
+      <tr>
+        <th scope="col">id</th>
+        <th scope="col">#</th>
+        <th scope="col">Title</th>
+        <th scope="col">Subject</th>
+        <th scope="col">Published Date</th>
+      </tr>
     </thead>
     <tbody>
-        <tr *ngFor="let page of pageList">
-            <th scope="row">{{ page.slug}}</th>
-            <td>{{ page.tittle}}</td>
-            <td>{{ page.subject}}</td>
-            <td>{{ page.publishDate | date:'dd/MM/yyyy'}}</td>
-        </tr>
+      <tr *ngFor="let page of pageList">
+        <td><a [routerLink]="['/pages', page.id]">{{ page.id }}</a></td>
+        <td>{{ page.doc.slug }}</td>
+        <td>{{ page.doc.title }}</td>
+        <td>{{ page.doc.subject }}</td>
+        <td>{{ page.doc.publishedDate | date:'dd/MM/yyyy' }}</td>
+      </tr>
     </tbody>
-</table>
-
+  </table>

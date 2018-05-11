@@ -4,32 +4,75 @@
     {{msg.text}}
   </div>
 
-<form>
+<form #myform="ngForm" novalidate>
+    
+  <!-- pristine: {{ myform.pristine | json }} <br/>
+    touched: {{ myform.touched | json }} -->
+
+
+
     <div class="form-group">
       <label for="title">Title</label>
       <input type="text" 
+        #formTitle="ngModel"
         class="form-control" 
         id="title" name="title" 
         [(ngModel)]="page.title" 
-        placeholder="Page Title">
-    </div>
+        placeholder="Page Title"
+       
+        required>
+
+        
+
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf='formTitle.touched && page.title == "" '
+        >
+          Campo Obrigatorio
+        </div>
+      
+
     <div class="form-group">
         <label for="subject">Subject</label>
         <input type="text" 
+          #formSubject="ngModel"
           class="form-control" 
           id="subject" name="subject" 
           [(ngModel)]="page.subject" 
-          placeholder="Page subject">
-    </div>
+          placeholder="Page subject"
+          required
+          >
+          
+        </div>
+        <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf='formSubject.touched && page.subject == "" '
+        >
+          Campo Obrigatorio
+        </div>
+        
     <div class="form-group">
     <label for="slug">Slug</label>
     <input type="text" 
+        #formSlug="ngModel"
         class="form-control" 
         id="slug" 
         name="slug" 
         [(ngModel)]="page.slug" 
-        placeholder="Page Slug...">
+        placeholder="Page Slug..."
+        required>
     </div>
+    <div
+    class="alert alert-danger"
+    role="alert"
+    *ngIf='formSlug.touched && page.slug == "" '
+    >
+      Campo Obrigatorio
+    </div>
+
     <div class="form-group">
       <label for="body">Body</label>
       <textarea class="form-control" 
@@ -42,4 +85,5 @@
 
   <button type="button" 
     class="btn btn-primary"
+    *ngIf="myform.valid"
     (click)="saveObject()">Save</button>
