@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { MediaComponent } from '../media/media.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { FormsModule } from '@angular/forms';
+import { NewMediaComponent } from './new/newmedia.component';
 
 
 
@@ -11,12 +12,12 @@ import { FormsModule } from '@angular/forms';
 
 @NgModule({
 
-    declarations: [MediaComponent] ,
+    declarations: [MediaComponent,NewMediaComponent] ,
     imports:[AppRoutingModule,
         BrowserModule,
         FormsModule,
         AppRoutingModule],
 
-    exports: [MediaComponent]
+    exports: [MediaComponent, NewMediaComponent]
 })
 export class MediaModule { }

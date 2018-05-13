@@ -14,6 +14,7 @@ import { AuthService } from './auth.service';
 import { MenuService } from './menu.service';
 import { DataService } from './data.service';
 import { AuthGuard } from '../auth-guard.service';
+import { AppRoutingModule } from '../app-routing.module';
 
 
 
@@ -35,6 +36,7 @@ import { AuthGuard } from '../auth-guard.service';
   imports: [
     BrowserModule,
     FormsModule,
+    AppRoutingModule
     
     
    

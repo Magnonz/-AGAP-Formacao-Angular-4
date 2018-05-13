@@ -1,0 +1,50 @@
+<div *ngFor="let msg of msgArray" 
+    class="alert alert-{{msg.type}}" 
+    role="alert">
+    {{msg.text}}
+  </div>
+
+<form #myform="ngForm" novalidate>
+    
+  <!-- pristine: {{ myform.pristine | json }} <br/>
+    touched: {{ myform.touched | json }} -->
+
+
+
+    <div class="form-group">
+      <label for="title">Title</label>
+      <input type="text" 
+        #formTitle="ngModel"
+        class="form-control" 
+        id="title" name="title" 
+        [(ngModel)]="media.title" 
+        placeholder="Media Title"
+       
+        required>
+
+      </div>
+      <div
+        class="alert alert-danger"
+        role="alert"
+        *ngIf='formTitle.touched && media.title == "" '
+        >
+          Campo Obrigatorio
+        </div>
+      
+
+    <div class="form-group">
+      <label for="body">Image</label>
+      <input type="file" class="form-control" 
+        id="img" 
+        name="img" 
+        (change)="handleInputChange($event)" 
+        #fileInput
+        >
+    </div>
+    <img [src]="imageSrc" style="max-width:300px;max-height:300px"/>
+  </form>
+
+  <button type="button" 
+    class="btn btn-primary"
+    *ngIf="myform.valid"
+    (click)="saveObject()">Save</button>

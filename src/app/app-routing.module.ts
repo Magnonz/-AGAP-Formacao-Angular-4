@@ -8,7 +8,7 @@ import { PagesComponent } from './pages/pages.component';
 import { MediaComponent } from './media/media.component';
 import { SettingsComponent } from './settings/settings.component';
 import { PageComponent } from './pages/new/page.component';
-
+import {NewMediaComponent} from './media/new/newmedia.component'
 import { AuthGuard } from './auth-guard.service';
 
 
@@ -17,7 +17,7 @@ const routes: Routes = [
 { path: 'pages', component: PagesComponent },
 { path: 'pages/:id', component: PageComponent },
 { path: 'media', component: MediaComponent },
-{ path: 'media/:id', component: PageComponent },
+{ path: 'media/:id', component: NewMediaComponent },
 { path: 'settings', component: SettingsComponent },
 	
 ];
