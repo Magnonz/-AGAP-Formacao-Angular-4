@@ -39,7 +39,9 @@ export class MediaComponent implements OnInit{
   public hidePage(args: { type: string, text: string }) {
     if (args.type == "success") this.showNew = false;
   }
-
+  public goToNew() {
+    this.router.navigate(['/media', 'new']);
+  }
 
 }
 

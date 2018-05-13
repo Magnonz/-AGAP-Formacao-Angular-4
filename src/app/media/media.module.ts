@@ -21,3 +21,6 @@ import { NewMediaComponent } from './new/newmedia.component';
     exports: [MediaComponent, NewMediaComponent]
 })
 export class MediaModule { }
+
+
+
